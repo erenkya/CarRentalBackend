@@ -6,17 +6,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/cars")
+@RequestMapping("cars")
 public class CarController {
 
     @Autowired
     private CarService carService;
 
 //    @CrossOrigin
-    @PostMapping("/addCar")
+    @PostMapping("addCar")
     public ResponseEntity<Car> addCar(@RequestBody Car car) {
         Car savedCar = carService.saveCar(car);
         return ResponseEntity.ok(savedCar);
     }
+
+    @GetMapping("getAllCars")
+    public ResponseEntity<List<Car>> getAllCars(){
+        return carService.getAllCars();
+    }
+
+
+
 }

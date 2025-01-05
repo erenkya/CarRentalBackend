@@ -7,30 +7,42 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
+@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 public class Reservation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer reservationId;
+    private Long reservationId;
+
+    @ManyToOne
+    @JoinColumn(name = "user_email", nullable = false)
+    private User user; // The user who made the reservation
 
     @ManyToOne
     @JoinColumn(name = "car_id", nullable = false)
-    private Car car;
+    private Car car; // The reserved car
 
     private LocalDate startDate;
     private LocalDate endDate;
 
 
-    public Integer getReservationId() {
+    public Long getReservationId() {
         return reservationId;
     }
 
-    public void setReservationId(Integer reservationId) {
+    public void setReservationId(Long reservationId) {
         this.reservationId = reservationId;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Car getCar() {
@@ -57,3 +69,5 @@ public class Reservation {
         this.endDate = endDate;
     }
 }
+
+
